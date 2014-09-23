@@ -1,26 +1,50 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Point and Line</title>
+        <title>Let's Play!</title>
         <!--<link href="css/bootstrap.min.css" rel="stylesheet" />-->
         <link href="css/style.css" rel="stylesheet" />
     </head>
 
     <body>
         <div class="wrapper">
-            <canvas id="myCanvas" class="canvas-style" width="600" height="600" style="border:1px solid #c3c3c3;">
+            <canvas id="myCanvas" class="canvas-style" width="650" height="650">
                 Your browser does not support the HTML5 canvas tag.
             </canvas>
-            <div class="input-group">
+            <div id="input-group">
+                <div class="input-style">Titik A</div>
                 <input id="inputX1" type="text" class="form-control input-style" placeholder="input x1" />
                 <input id="inputY1" type="text" class="form-control input-style" placeholder="input y1" />
-                <button id="buttonTitik1" class="btn btn-primary input-style">Tambah Titik</button>
+                <button id="buttonTitik1" class="btn btn-primary input-style">+</button>
+                
+                <div class="clear"></div>
+                <div class="input-style">Titik B</div>
                 <input id="inputX2" type="text" class="form-control input-style" placeholder="input x2" />
                 <input id="inputY2" type="text" class="form-control input-style" placeholder="input y2" />
-                <button id="buttonTitik2" class="btn btn-primary input-style">Tambah Titik</button>
-                <button id="buttonGaris" class="btn btn-primary input-style">Tambah Garis</button>
-                <button id="reset" class="btn btn-warning input-style">Reset</button>
-                <label id="lblPanjang" class="label"></label>
+                <button id="buttonTitik2" class="btn btn-primary input-style">+</button>
+                
+                <div class="clear"></div>
+                <button id="buttonGaris" class="btn btn-op btn-primary input-style">Tambah Garis</button>
+                <button id="buttonAddition" class="btn btn-op btn-primary input-style">Addition</button>
+                <button id="buttonSubtraction" class="btn btn-op btn-primary input-style">Subtraction</button>
+                
+                <div class="clear"></div>
+                <div class="input-style">Refleksi</div>
+                <button id="buttonRefXAxis" class="btn btn-op btn-primary input-style">Refleksi X-axis</button>
+                <button id="buttonRefYAxis" class="btn btn-op btn-primary input-style">Refleksi Y-axis</button>
+                <button id="buttonRefCenter" class="btn btn-op btn-primary input-style">Refleksi 0,0</button>
+                <input id="inputRefX" type="text" class="form-control input-style" placeholder="refleksi garis X" />
+                <button id="buttonRefX" class="btn btn-primary input-style">+</button>
+                <input id="inputRefY" type="text" class="form-control input-style" placeholder="refleksi garis Y" />
+                <button id="buttonRefY" class="btn btn-primary input-style">+</button>
+                <input id="inputRefXY1" type="text" class="form-control input-style2" placeholder="refleksi X" />
+                <input id="inputRefXY2" type="text" class="form-control input-style2" placeholder="refleksi Y" />
+                <button id="buttonRefXY" class="btn btn-primary input-style">+</button>
+                
+                <div class="clear"></div>
+                <label id="lblPanjang" class="label input-style"></label>
+                <button id="reset" class="btn btn-op btn-warning input-style">Reset</button>
+                
             </div>
 <!--            <div class="input-group">
                 
@@ -28,7 +52,7 @@
                 <input id="input1" type="text" class="form-control input-style" placeholder="input y" />
                 <button id="button2" class="btn btn-primary input-style">Tambah Garis</button>
             </div>-->
-            this is test
+            
         </div>
 
         <script src="js/line.js" type="text/javascript">

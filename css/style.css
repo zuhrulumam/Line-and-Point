@@ -7,22 +7,42 @@ and open the template in the editor.
     Created on : Sep 14, 2014, 8:25:12 PM
     Author     : juliardi
 */
-@import "bootstrap.min.css";
+/*@import "bootstrap.min.css";*/
 
 * {
-	margin: 0px auto;
-	padding: 0px;
+    margin: 0px auto;
+    padding: 0px;
 }
 
 .canvas-style {
-    margin: 20px;
+    margin: 15px;
+    display: block;
     float: left;
+    border: 1px solid #c3c3c3;
+}
+
+.form-control {
+    padding: 5px 9px;
+    border: 1px solid #888;
 }
 
 .input-style {
+    width: 78%;
     float: left;
-    margin: 5px;
-    margin-top: 20px;
+    margin-top: 15px;
+    margin-bottom: -7px;
+}
+
+.input-style2 {
+    width: 35%;
+    float: left;
+    margin-top: 15px;
+    margin-bottom: -7px;
+}
+
+.clear {
+    clear: both;
+    height: 10px;
 }
 
 .wrapper {
@@ -30,10 +50,45 @@ and open the template in the editor.
     display: block;
     /*margin-left: 10px;*/
     overflow: auto;
-    padding: 5px;
-    width: 100%;
+    width: 960px;
 }
 
-.input-group {
-    margin-right: 25px;
+#input-group {
+    width: 260px;
+    float: left;
+    /*margin-right: 25px;*/
+}
+
+.btn {
+    width: auto;
+    padding: 4px 6.5px;
+    margin-left: 6px;
+    border: 1px solid #888;
+    background: #EEE;
+}
+
+.btn-op {
+    width: 100%;
+    margin-left: 0px;
+    padding: 5px 8px;
+}
+
+.btn-primary {
+    background: #FFF;
+}
+
+.btn-warning {
+    background: #DDD;
+}
+
+.label {
+    width: 100%;
+    margin-top: 5px;
+    text-align: right;
+    font-size: small;
+    color: #666;
+}
+
+#reset {
+    margin-top: 15px;
 }

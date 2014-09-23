@@ -53,7 +53,7 @@ function Grid(canvasObject, convert) {
 Grid.prototype.init = function() {
     this.x0 = this.canvas.height / 2;
     this.y0 = this.canvas.width / 2;
-    this.ctx.font = "14px Georgia";
+    this.ctx.font = "13px Georgia";
     this.drawGrid();
     this.drawXY();
 };
@@ -222,12 +222,12 @@ Grid.prototype.drawGrid = function() {
     for (var i = 0; i <= this.canvas.width; i++) {
         if (i % this.convert === 0) {
             var lineX = new Line(new Point(i, 0), new Point(i, this.canvas.height), false, true);
-            lineX.setColor("#666");
+            lineX.setColor("#AAA");
             this.drawLine(lineX);
             this.drawTextReal((-1) * nilai, i + 2, this.canvas.width / 2 - 3);
 
             var lineY = new Line(new Point(0, i), new Point(this.canvas.width, i), false, true);
-            lineY.setColor("#666");
+            lineY.setColor("#AAA");
             this.drawLine(lineY);
             this.drawTextReal(nilai--, this.canvas.height / 2 + 3, i - 3);
         }
@@ -242,11 +242,14 @@ Grid.prototype.lineAddition2 = function(pointA, pointB) {
     this.lineAddition3(pointA.x, pointA.y, pointB.x, pointB.y);
 };
 
+//addition. membuat koordinat baru sebagai hasil jumlah 2 koordinat
 Grid.prototype.lineAddition3 = function(x1, y1, x2, y2) {
-    var p = new Point(x2+x1, y2+y1, false);
+    var ax = parseFloat(x2)+parseFloat(x1);
+    var ay = parseFloat(y2)+parseFloat(y1);
+    var p = new Point(ax, ay, false, "C");
     this.drawPoint(p);
-    this.drawLine3(x1, y1, p.x, p.y);
-    this.drawLine3(x2, y2, p.x, p.y);
+    this.drawLine3(x1, y1, p.x, p.y, "red");
+    this.drawLine3(x2, y2, p.x, p.y, "red");
 };
 
 Grid.prototype.lineSubstraction = function(line) {
@@ -257,15 +260,65 @@ Grid.prototype.lineSubstraction2 = function(pointA, pointB) {
     this.lineSubstraction3(pointA.x, pointA.y, pointB.x, pointB.y);
 };
 
+//subtraction. membuat koordinat baru sebagai hasil kurang 2 koordinat
 Grid.prototype.lineSubstraction3 = function(x1, y1, x2, y2) {
-    var p = new Point(x2-x1, y2-y1, false);
+    var sx = parseFloat(x2)-parseFloat(x1);
+    var sy = parseFloat(y2)-parseFloat(y1);
+    var p = new Point(sx, sy, false, "D");
     this.drawPoint(p);
-    this.drawLine3(x1, y1, p.x, p.y);
-    this.drawLine3(x2, y2, p.x, p.y);
+    this.drawLine3(x1, y1, p.x, p.y, "red");
+    this.drawLine3(x2, y2, p.x, p.y, "red");
 };
 
 Grid.prototype.vectorAddition = function(lineA, lineB) {
     // body...
+};
+
+Grid.prototype.reflectionXAxis = function(line) {
+    this.reflectionY(line, 0);
+};
+
+Grid.prototype.reflectionYAxis = function(line) {
+    this.reflectionX(line, 0);
+};
+
+Grid.prototype.reflectionCenter = function(line) {
+    this.reflectionXY(line, 0, 0);
+};
+
+//refleksi terhadap garis sejajar sumbu Y. mencari X baru
+Grid.prototype.reflectionX = function(line, n) {
+    var x1 = 2*n-parseFloat(line.x1);
+    var x2 = 2*n-parseFloat(line.x2);
+    var p1 = new Point(x1, line.pointA.y, false, "A'");
+    var p2 = new Point(x2, line.pointB.y, false, "B'");
+    this.drawPoint(p1);
+    this.drawPoint(p2);
+    this.drawLine2(p1, p2, "blue", false);
+};
+
+//refleksi terhadap garis sejajar sumbu X. mencari Y baru
+Grid.prototype.reflectionY = function(line, n) {
+    var y1 = 2*n-parseFloat(line.y1);
+    var y2 = 2*n-parseFloat(line.y2);
+    var p1 = new Point(line.pointA.x, y1, false, "A'");
+    var p2 = new Point(line.pointB.x, y2, false, "B'");
+    this.drawPoint(p1);
+    this.drawPoint(p2);
+    this.drawLine2(p1, p2, "blue", false);
+};
+
+//refleksi terhadap titik. mencari X dan Y baru
+Grid.prototype.reflectionXY = function(line, x, y) {
+    var x1 = 2*x-parseFloat(line.x1);
+    var y1 = 2*y-parseFloat(line.y1);
+    var x2 = 2*x-parseFloat(line.x2);
+    var y2 = 2*y-parseFloat(line.y2);
+    var p1 = new Point(x1, y1, false, "A'");
+    var p2 = new Point(x2, y2, false, "B'");
+    this.drawPoint(p1);
+    this.drawPoint(p2);
+    this.drawLine2(p1, p2, "blue", false);
 };
 
 Grid.prototype.clear = function() {
@@ -279,50 +332,127 @@ window.onload = init;
 
 var grid;
 var convert = 25;
-var p1, p2;
+var p1, p2, line;
 //var arr = new Array();
 
 function init() {
     var canvas = get("myCanvas");
     grid = new Grid(canvas, convert);
     
+    //listener untuk menambah titik A
     var bt1 = get('buttonTitik1');
     bt1.onclick = function() {
         var inputX = get('inputX1');
         var inputY = get('inputY1');
         
-        var p = new Point(inputX.value, inputY.value, false);
+        var p = new Point(inputX.value, inputY.value, false, "A");
         grid.drawPoint(p);
         p1 = p;
         //arr.push(p);
     };
     
+    //litener untuk menambah titik B
     var bt2 = get('buttonTitik2');
     bt2.onclick = function() {
         var inputX = get('inputX2');
         var inputY = get('inputY2');
         
-        var p = new Point(inputX.value, inputY.value, false);
+        var p = new Point(inputX.value, inputY.value, false, "B");
         grid.drawPoint(p);
         p2 = p;
         //arr.push(p);
     };
     
-    var b2 = get('buttonGaris');
-    b2.onclick = function() {
-        if( !(p1===null||p2===null) ) {
-            var line = new Line(p1, p2, false, false);
+    //listener untuk menambah garis
+    var b1 = get('buttonGaris');
+    b1.onclick = function() {
+        if( p1!==null && p2!==null ) {
+            line = new Line(p1, p2, false, false);
             grid.drawLine(line);
             var label = get('lblPanjang');
             label.innerHTML = "Panjang garis : "+line.length();
         }
     };
-
-    var b3 = get('reset');
+    
+    //listener untuk addition p2+p1
+    var b2 = get('buttonAddition');
+    b2.onclick = function() {
+        if( line!==null ) {
+            grid.lineAddition(line);
+        }
+    };
+    
+    //listener untuk subtraction p2-p1
+    var b3 = get('buttonSubtraction');
     b3.onclick = function() {
+        if( line!==null ) {
+            grid.lineSubstraction(line);
+        }
+    };
+    
+    //listener untuk refleksi garis terhadap sumbu X
+    var brXA = get('buttonRefXAxis');
+    brXA.onclick = function() {
+        if( line!==null ) {
+            grid.reflectionXAxis(line);
+        }
+    };
+    
+    //listener untuk refleksi garis terhadap sumbu Y
+    var brYA = get('buttonRefYAxis');
+    brYA.onclick = function() {
+        if( line!==null ) {
+            grid.reflectionYAxis(line);
+        }
+    };
+    
+    //listener untuk refleksi terhadap titik pusat
+    var brC = get('buttonRefCenter');
+    brC.onclick = function() {
+        if( line!==null ) {
+            grid.reflectionCenter(line);
+        }
+    };
+    
+    //listener untuk refleksi terhadap garis sejajar sumbu Y
+    var brX = get('buttonRefX');
+    brX.onclick = function() {
+        if( line!==null ) {
+            grid.reflectionX( line, get('inputRefX').value );
+        }
+    };
+    
+    //listener untuk refleksi terhadap garis sejajar sumbu X
+    var brY = get('buttonRefY');
+    brY.onclick = function() {
+        if( line!==null ) {
+            grid.reflectionY( line, get('inputRefY').value );
+        }
+    };
+    
+    //listener untuk refleksi terhadap titik
+    var brXY = get('buttonRefXY');
+    brXY.onclick = function() {
+        if( line!==null ) {
+            grid.reflectionXY( line, get('inputRefXY1').value, get('inputRefXY2').value );
+//            grid.reflectionXY( line, -1, -1 );
+        }
+    };
+
+    //listener untuk reset
+    var br = get('reset');
+    br.onclick = function() {
         p1 = null;
         p2 = null;
+        line = null;
         grid.clear();
+		//get('inputX2').value = "";
+var inputgrup = document.getElementById('input-group');
+var input = inputgrup.getElementsByTagName( 'input' );
+//alert(input.length);
+for ( var z = 0; z < input.length; z++ ) { 
+        input[z].value = ""; 
+    }
 
         // canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
         // grid = new Grid(canvas, convert);
