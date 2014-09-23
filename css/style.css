@@ -1,0 +1,39 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Sep 14, 2014, 8:25:12 PM
+    Author     : juliardi
+*/
+@import "bootstrap.min.css";
+
+* {
+	margin: 0px auto;
+	padding: 0px;
+}
+
+.canvas-style {
+    margin: 20px;
+    float: left;
+}
+
+.input-style {
+    float: left;
+    margin: 5px;
+    margin-top: 20px;
+}
+
+.wrapper {
+    border: 1px solid black;
+    display: block;
+    /*margin-left: 10px;*/
+    overflow: auto;
+    padding: 5px;
+    width: 100%;
+}
+
+.input-group {
+    margin-right: 25px;
+}
